@@ -6,9 +6,7 @@ function NavBar() {
     <nav>
       <div className="logo">
         <img
-          src={
-            "https://th.bing.com/th?q=Swiggy+Logo+JPEG+Images+Free+Download&w=120&h=120&c=1&rs=1&qlt=90&cb=1&pid=InlineBlock&mkt=en-IN&cc=IN&setlang=en&adlt=moderate&t=1&mw=247"
-          }
+          src="https://th.bing.com/th?q=Swiggy+Logo+JPEG+Images+Free+Download&w=120&h=120&c=1&rs=1&qlt=90&cb=1&pid=InlineBlock&mkt=en-IN&cc=IN&setlang=en&adlt=moderate&t=1&mw=247"
           alt="Swiggy Logo"
         />
       </div>
@@ -18,6 +16,29 @@ function NavBar() {
         <li>Cart</li>
       </ul>
     </nav>
+  );
+}
+
+function Card({ obj }) {
+  const BASE_URL =
+    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+
+  return (
+    <div className="card" key={obj.info.id}>
+      <div className="image">
+        <img src={BASE_URL + obj.info.cloudinaryImageId} alt="image logo" />
+      </div>
+      <div className="content">
+        <p className="boldTxt">{obj.info.name}</p>
+        <p className="boldTxt">
+          {obj.info.avgRating} | {obj.info.sla.slaString}
+        </p>
+        <p className="lightTxt">
+          <span className="cuisines">{obj.info.cuisines.join(", ")}</span>
+        </p>
+        <p className="lightTxt">{obj.info.locality}</p>
+      </div>
+    </div>
   );
 }
 
@@ -521,34 +542,12 @@ function App() {
       },
     },
   ];
-  const BASE_URL =
-    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
   return (
     <div>
       <NavBar />
       <div className="itemCardHolder">
         {data.map((item) => {
-          return (
-            <div className="card" key={item.info.id}>
-            <div className="image">
-              <img
-                src={BASE_URL + item.info.cloudinaryImageId}
-                alt="image logo"
-              />
-            </div>
-            <div className="content">
-              <p className="boldTxt">{item.info.name}</p>
-              <p className="boldTxt">{item.info.avgRating} | {item.info.totalRatingsString}</p>
-              <p className="lightTxt">
-                <span className="cuisines">
-                  {item.info.cuisines.join(', ')}
-                </span>
-              </p>
-              <p className="lightTxt">{item.info.locality}</p>
-            </div>
-          </div>
-          
-          );
+          return <Card key={item.info.id} obj={item} />;
         })}
       </div>
     </div>
