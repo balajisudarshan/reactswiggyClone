@@ -104,6 +104,23 @@ nav {
     flex-direction: column;
     align-items: center;
   }
+  .logo {
+
+    width: 15%;
+    height: auto;
+  }
+  .logo img{
+    width: 100%;
+  }
+  .card {
+    width: 205px;
+    height: 350px;
+    box-shadow: 10px 4px 8px black;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
 }
 .shimmer-content-container{
   width: 100%;
