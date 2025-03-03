@@ -2,17 +2,21 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import RestaurantContainer from "./components/RestaurantContainer";
 import NavBar from "./components/NavBar";
+import useOnlineStatus from "./utils/hooks/useOnlineStatus";
+import Shimmer from "./components/Shimmer";
 
-function Notification(status){
-  return(
+// Notification Component to display offline status message
+function Notification() {
+  return (
     <div className="offlineNotification">
       <p>You are currently offline. Swiggy may not be available. 🕗</p>
     </div>
-  )
+  );
 }
+
 function App() {
-  const [status,setStatus] = useState(navigator.onLine)
   const [data, setData] = useState([]);
+  const status = useOnlineStatus();  // Track online status using the custom hook
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,28 +28,20 @@ function App() {
         setData(
           data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
         );
+        console.log(data);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
 
     fetchData();
-  }, []); 
+  }, []); // Fetch data only once on component mount
 
-  useEffect(() => {
-    window.addEventListener('online',()=>{
-      setStatus(true)
-    })
-    window.addEventListener('offline',()=>{
-      setStatus(false)
-    })
-  },[status])
   return (
     <div>
       <NavBar />
       
-      {status?<RestaurantContainer data={data} />:<Notification/>}
-         
+      {status ? <RestaurantContainer data={data} /> : <Notification />}  
     </div>
   );
 }

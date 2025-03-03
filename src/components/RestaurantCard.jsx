@@ -6,7 +6,13 @@ function RestaurantCard({ obj }) {
     <div className="card" key={obj.info.id}>
       <div className="image">
         <img src={BASE_URL + obj.info.cloudinaryImageId} alt="image logo" />
+        {obj.info.aggregatedDiscountInfoV3 && (
+          <div className="aggregatedDiscount">
+            {obj.info.aggregatedDiscountInfoV3.header + " " + obj.info.aggregatedDiscountInfoV3.subHeader}
+          </div>
+        )}
       </div>
+      <div className="gradient-bg"></div>
       <div className="content">
         <p className="boldTxt">{obj.info.name}</p>
         <p className="boldTxt">
