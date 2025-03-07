@@ -5,6 +5,11 @@
   font-family: 'Gilroy-medium';
 }
 
+/* @font-face {
+  font-family: 'Gilroy-medium';
+  src: url();
+} */
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -248,4 +253,57 @@ nav {
 a{
   text-decoration: none;
   color: black;
+}
+.restaurantContainer{
+  width: 59%;
+  margin: 20px auto;
+}
+.res-content-bg{
+  background-color: red;
+  padding: 0px 20px 20px 20px;
+  margin-top: 40px;
+  border-radius: 20px;
+  background: rgb(173,173,173);
+  background: linear-gradient(0deg, rgba(173,173,173,0.44579830223104866) 11%, rgba(255,255,255,0) 50%); 
+}
+.res-name{
+  font-weight: bolder;
+  font-size: 1.8rem;
+  font-family: 'Gilroy-Bold';
+  padding-left: 20px;
+}
+.restaurant-content {
+ 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(90, 90, 90, 0.2);
+  padding: 20px;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1), 
+              0px 0px 10px rgba(0, 0, 0, 0.05);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.restaurant-cuisines{
+  color: rgb(255, 82, 0);
+  font-size: medium;
+  text-decoration: underline;
+}
+.outlet{
+  display: flex;
+  gap: 20px;
+ 
+  flex-direction: column;
+}
+.lightTxt{
+  color: rgb(122, 120, 120);
+  
+}
+.outlet-line {
+  width: 2px;
+  height: 40px;
+  background-color: #ccc;
+  margin-right: 10px;
 }

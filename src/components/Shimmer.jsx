@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 function Shimmer() {
   const [showShimmer, setShowShimmer] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowShimmer(false);
-    }, 5000); // 10 seconds
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowShimmer(false);
+  //   }, 5000); // 10 seconds
 
-    return () => clearTimeout(timer); // Cleanup the timer on unmount
-  }, []);
+  //   return () => clearTimeout(timer); // Cleanup the timer on unmount
+  // }, []);
 
   return (
     <>
