@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Gilroy-medium';
+  font-family: "Roboto", sans-serif;
 }
 
 /* @font-face {
@@ -269,7 +270,7 @@ a{
 .res-name{
   font-weight: bolder;
   font-size: 1.8rem;
-  font-family: 'Gilroy-Bold';
+
   padding-left: 20px;
 }
 .restaurant-content {
@@ -306,4 +307,124 @@ a{
   height: 40px;
   background-color: #ccc;
   margin-right: 10px;
+}
+.menuContainer {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.menuCardHolder {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.recommendedContainer {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.menuCard {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.menuCardItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.menuCardItem:hover {
+  transform: scale(1.02);
+}
+
+.menuContent {
+  flex: 1;
+  padding-right: 15px;
+}
+
+.ribbon {
+  background: #ff5722;
+  color: white;
+  padding: 3px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+h2.lightTxt {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff5722;
+}
+
+p {
+  font-size: 14px;
+  color: #666;
+}
+
+.thumbnail {
+  width: 20%;
+  height: auto;
+  /* background: #ddd; */
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  object-fit: cover;
+  position: relative;
+}
+.thumbnail img{
+  width: 100%;
+  height: 100%;
+}
+.addBtn{
+  background-color:white;
+  outline: none;
+  border: none;
+  padding: 10px;
+  margin: 10px 0;
+  width: 40%;
+  border-radius: 10px;
+  color:  #ff5722;
+  position: relative;
+  z-index: 1;
+}
+.addBtn::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #ff5722;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: 300ms ease-in-out ;
+  z-index: -1;
+}
+.addBtn:hover::before,.addBtn:focus::before{
+  transform: scaleX(1);
+  
+}
+.addBtn:hover{
+  color: white;
 }
