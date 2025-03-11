@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-// export function StarIcon() {
+import useRestaurantMenu from "../utils/hooks/useRestaurantMenu";
+
 //   return (
 //     <div className="star">
 //       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -13,28 +14,10 @@ import { useParams } from "react-router";
 // setMenuData(jsonData.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card.itemCards[1].card.info)
 // https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=14.4338728&lng=79.9700593&restaurantId=${id}&catalog_qa=undefined&submitAction=ENTER`
 const Menu = () => {
+  const { id } = useParams();
+  const {restaurantData,menuData} = useRestaurantMenu(id);
   const IMAGE_BASE_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
-  const { id } = useParams();
-  const [restaurantData, setRestaurantData] = useState([]);
-  const [menuData, setMenuData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=14.4338728&lng=79.9700593&restaurantId=${id}&catalog_qa=undefined&submitAction=ENTER`
-      );
-      const jsonData = await response.json();
-      setRestaurantData(jsonData.data.cards[2].card.card.info);
-      setMenuData(
-        jsonData.data.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || []
-      );
-    };
-    fetchData();
-  }, [id]);
-  if (restaurantData.length === 0) {
-    return "Loading";
-  }
   return (
     <>
       <div className="restaurantContainer">
@@ -60,40 +43,53 @@ const Menu = () => {
         <div className="menuContainer">
           <h3>Menu</h3>
           <div className="menuCardHolder">
-            {menuData.map((item) =>
-              item?.card?.card?.["@type"]?.includes("ItemCategory") ? (
-                <div key={item?.card?.card?.title}>
-                  <div className="recommendedContainer">
-                    <h1>{item?.card?.card?.title}</h1>
-                    <div className="menuCard">
-                      {item?.card?.card?.itemCards.map((itemCard) => {
-                        console.log(itemCard.card.info.name);
-                        let menu = itemCard.card.info;
-                        return (
-                          <div className="menuCardItem" key={menu.name}>
-                            <div className="menuContent">
-                              <div className="ribbon">
-                                {menu.ribbon ? menu.ribbon.text : null}
+            {menuData?.map((item) => {
+              if (item?.card?.card?.["@type"]?.includes("ItemCategory")) {
+                return (
+                  <div key={item?.card?.card?.title}>
+                    <div className="recommendedContainer">
+                      <h1>{item?.card?.card?.title}</h1>
+                      <div className="menuCard">
+                        {item?.card?.card?.itemCards?.map((itemCard) => {
+                          console.log(itemCard.card.info.name);
+                          let menu = itemCard.card.info;
+                          return (
+                            <div className="menuCardItem" key={menu.name}>
+                              <div className="menuContent">
+                                <div className="ribbon">
+                                  {menu.ribbon ? menu.ribbon.text : null}
+                                </div>
+                                <h2 className="lightTxt">{menu.name}</h2>
+                                <h3>{menu.price}</h3>
+                                <p>
+                                  {menu.ratings?.aggregatedRating?.rating} (
+                                  {
+                                    menu.ratings?.aggregatedRating
+                                      ?.ratingCountV2
+                                  }
+                                  )
+                                </p>
+                                <p>{menu.description}</p>
+                                <button className="addBtn">Add Now</button>
                               </div>
-                              <h2 className="lightTxt">{menu.name}</h2>
-                              <h3>{menu.price}</h3>
-                              <p>{menu.ratings.aggregatedRating.rating} {" "} ({menu.ratings.aggregatedRating.ratingCountV2})</p>
-                              <p>{menu.description}</p>
-                              <button className="addBtn">Add Now</button>
+
+                              <div className="thumbnail">
+                                <img
+                                  src={IMAGE_BASE_URL + menu.imageId}
+                                  alt="Image not available"
+                                />
+                              </div>
                             </div>
-                            
-                            <div className="thumbnail">
-                              <img src={IMAGE_BASE_URL + menu.imageId} alt="Image not available" />
-                              
-                            </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : null
-            )}
+                );
+              } else {
+                return null; // To prevent undefined errors
+              }
+            })}
           </div>
         </div>
       </div>
