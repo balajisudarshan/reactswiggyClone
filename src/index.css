@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 * {
   margin: 0;
@@ -258,6 +259,7 @@ a{
 .restaurantContainer{
   width: 59%;
   margin: 20px auto;
+  position: relative;
 }
 .res-content-bg{
   background-color: red;
@@ -320,39 +322,11 @@ a{
   gap: 20px;
 }
 
-.recommendedContainer {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
-.menuCard {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 10px;
-}
 
-.menuCardItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #f8f8f8;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
-}
 
-.menuCardItem:hover {
-  transform: scale(1.02);
-}
 
-.menuContent {
-  flex: 1;
-  padding-right: 15px;
-}
+
 
 .ribbon {
   background: #ff5722;
@@ -381,50 +355,64 @@ p {
   color: #666;
 }
 
-.thumbnail {
-  width: 20%;
-  height: auto;
-  /* background: #ddd; */
-  border-radius: 8px;
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-  object-fit: cover;
-  position: relative;
+
+
+.sideBar {
+  width: 200px;
+  background-color: #ddd;
+  padding: 10px;
 }
-.thumbnail img{
-  width: 100%;
+
+.mainContainer {
+  flex-grow: 1;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.menuCard {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+.menuCard p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.menuCard div {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #444;
+  padding: 5px 0;
+}
+.menuCardItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+.menuCardContent{
+  width: 60%;
+}
+.thumbnail {
+  width: 30%;
   height: 100%;
+  overflow: hidden;/* Ensure proper positioning of child elements */
+}
+
+.thumbnail img {
+  width: 100%;
+
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .addBtn{
-  background-color:white;
-  outline: none;
   border: none;
-  padding: 10px;
-  margin: 10px 0;
-  width: 40%;
-  border-radius: 10px;
-  color:  #ff5722;
-  position: relative;
-  z-index: 1;
-}
-.addBtn::before{
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: #ff5722;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: 300ms ease-in-out ;
-  z-index: -1;
-}
-.addBtn:hover::before,.addBtn:focus::before{
-  transform: scaleX(1);
-  
-}
-.addBtn:hover{
-  color: white;
+  outline: none;
+  width: 100%;
+
 }

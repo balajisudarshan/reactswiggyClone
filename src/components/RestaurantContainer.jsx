@@ -44,6 +44,17 @@ function RestaurantContainer({ data }) {
           <Shimmer />
         )}
       </div>
+      {/* <div className="filterContainer">
+        <div className="sideBar">
+          <ul>
+            <li>Rating</li>
+            <li>Rating</li>
+          </ul>
+        </div>
+        <div className="mainContainer">
+
+        </div>
+      </div> */}
     </div>
   );
 }

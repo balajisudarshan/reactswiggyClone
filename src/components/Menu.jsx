@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useRestaurantMenu from "../utils/hooks/useRestaurantMenu";
+import MenuInnerCard from "./MenuInnerCard";
 
 //   return (
 //     <div className="star">
@@ -15,9 +16,10 @@ import useRestaurantMenu from "../utils/hooks/useRestaurantMenu";
 // https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=14.4338728&lng=79.9700593&restaurantId=${id}&catalog_qa=undefined&submitAction=ENTER`
 const Menu = () => {
   const { id } = useParams();
-  const {restaurantData,menuData} = useRestaurantMenu(id);
+  const { restaurantData, menuData } = useRestaurantMenu(id);
   const IMAGE_BASE_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
+
   return (
     <>
       <div className="restaurantContainer">
@@ -25,11 +27,12 @@ const Menu = () => {
         <div className="res-content-bg">
           <div className="restaurant-content">
             <div className="restaurant-header boldTxt">
-              {restaurantData.avgRating} ({restaurantData.totalRatingsString}){" "}
-              {"/"} {restaurantData.costForTwoMessage}
+              {restaurantData.avgRating && restaurantData?.avgRating} (
+              {restaurantData?.totalRatingsString}) {"/"}{" "}
+              {restaurantData.costForTwoMessage}
             </div>
             <div className="restaurant-cuisines">
-              {/* {restaurantData?.cuisines.join(" , ")} */}
+              {restaurantData?.cuisines?.join(" , ")}
             </div>
             <div className="outlet">
               <p className="areaName">
@@ -42,16 +45,25 @@ const Menu = () => {
         </div>
         <div className="menuContainer">
           <h3>Menu</h3>
-          <div className="menuCardHolder">
+          {/* <div className="menuCardHolder">
             {menuData?.map((item) => {
-              if (item?.card?.card?.["@type"]?.includes("ItemCategory")) {
+              if (item?.card?.card?.["@type"]?.includes("ItemCategory")||item?.card?.card?.["@type"]?.includes("NestedItemCategory")) {
                 return (
                   <div key={item?.card?.card?.title}>
                     <div className="recommendedContainer">
-                      <h1>{item?.card?.card?.title}</h1>
+                      <h1>{item?.card?.card?.title} {item?.card?.card.length}</h1>
                       <div className="menuCard">
+                        {"categories" in item?.card?.card?(
+                          item?.card?.card?.categories?.map((category)=>{
+                            return(
+                            <>
+                              <p>{category.title}</p>
+                            </>
+                            )
+                          })
+                        ):[]}
                         {item?.card?.card?.itemCards?.map((itemCard) => {
-                          console.log(itemCard.card.info.name);
+                          // console.log(itemCard.card.info.name);
                           let menu = itemCard.card.info;
                           return (
                             <div className="menuCardItem" key={menu.name}>
@@ -60,7 +72,7 @@ const Menu = () => {
                                   {menu.ribbon ? menu.ribbon.text : null}
                                 </div>
                                 <h2 className="lightTxt">{menu.name}</h2>
-                                <h3>{menu.price}</h3>
+                                <h3>{menu.price/100}</h3>
                                 <p>
                                   {menu.ratings?.aggregatedRating?.rating} (
                                   {
@@ -89,8 +101,38 @@ const Menu = () => {
               } else {
                 return null; // To prevent undefined errors
               }
+            })} */}
+          <div className="menuCardHolder">
+            {console.log(menuData)}
+            {menuData.map((item) => {
+              let menu = item.card.card;
+              if (
+                menu?.["@type"]?.includes("ItemCategory") ||
+                menu?.["@type"]?.includes("NestedItemCategory")
+              ) {
+                return (
+                  <div key={menu.title}>
+                    <h1>{menu.title}</h1>
+                    {"categories" in menu ? (
+                      menu.categories.map((cat) => (
+                        <div className="menuCard" key={cat.categoryId}>
+                          <p>{cat.title}</p>
+                          <MenuInnerCard data={cat} />
+                        </div>
+                      ))
+                    ) : (
+                      <div className="menuCard">
+                        <MenuInnerCard data={menu} />
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              return null;
             })}
           </div>
+
+          {/* </div> */}
         </div>
       </div>
     </>
