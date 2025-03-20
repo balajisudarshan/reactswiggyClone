@@ -14,7 +14,7 @@ function RestaurantCard({ obj }) {
       </div>
       <div className="gradient-bg"></div>
       <div className="content">
-        <p className="boldTxt">{obj.info.name}</p>
+        <p >{obj.info.name}</p>
         <p className="boldTxt">
           {obj.info.avgRating} | {obj.info.sla.slaString}
         </p>
