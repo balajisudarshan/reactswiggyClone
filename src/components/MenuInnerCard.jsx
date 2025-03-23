@@ -1,12 +1,13 @@
 import React from "react";
 
 import MenuCardItem from "./MenuCardItem";
-const MenuInnerCard = ({ data }) => {
+const MenuInnerCard = ({ data,isOpen }) => {
   return (
     <>
-      {data.itemCards.map((itemCard) => {
+      { isOpen===data.title && data.itemCards.map((itemCard) => {
         return (
-         <MenuCardItem itemCard={itemCard}/>
+          
+         <MenuCardItem itemCard={itemCard} isOpen={isOpen}/>
         );
       })}
     </>

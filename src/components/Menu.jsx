@@ -19,7 +19,7 @@ const Menu = () => {
   const { restaurantData, menuData } = useRestaurantMenu(id);
   const IMAGE_BASE_URL =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
-
+  const [isOpen, setIsOpen] = useState("");
   return (
     <>
       <div className="restaurantContainer">
@@ -112,17 +112,30 @@ const Menu = () => {
               ) {
                 return (
                   <div key={menu.title}>
-                    <h1>{menu.title}</h1>
+                    <div className="flex justify-between rounded-xl !p-1">
+                      <h1 className="text-3xl">{menu.title}</h1>
+                      <h1
+                        className="text-2xl p-10 mr-10 cursor-pointer"
+                        onClick={() => {
+                          setIsOpen(menu.title);
+                          if (menu.title === isOpen) {
+                            setIsOpen("");
+                          }
+                        }}
+                      >
+                        {isOpen === menu.title ? "🔼" : "🔽"}
+                      </h1>
+                    </div>
                     {"categories" in menu ? (
                       menu.categories.map((cat) => (
                         <div className="menuCard" key={cat.categoryId}>
                           <p>{cat.title}</p>
-                          <MenuInnerCard data={cat} />
+                          <MenuInnerCard data={cat} isOpen={isOpen} />
                         </div>
                       ))
                     ) : (
                       <div className="menuCard">
-                        <MenuInnerCard data={menu} />
+                        <MenuInnerCard data={menu} isOpen={isOpen} />
                       </div>
                     )}
                   </div>

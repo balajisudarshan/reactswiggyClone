@@ -1,5 +1,9 @@
 import { Link } from "react-router";
+import MyStore from "../utils/MyStore";
+import { useSelector } from "react-redux";
+
 function NavBar() {
+  const cartItems = useSelector((state)=>state.cart.items)
   return (
     <nav>
       <div className="logo">
@@ -13,7 +17,7 @@ function NavBar() {
       <ul className="links">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li>Cart</li>
+        <li><i class="fa-solid fa-cart-shopping"></i> <span className="text-blue-950">{cartItems.length}</span></li>
       </ul>
     </nav>
   );
